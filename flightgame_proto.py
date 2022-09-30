@@ -1,4 +1,3 @@
-
 import mysql.connector
 
 def connect_database():
@@ -15,6 +14,7 @@ def connect_database():
 connection = connect_database()
 
 
+# lentokentän haku
 def search_airport(icao):
      sql = f"SELECT name FROM airport where ident = '{icao}'"
      cursor = connection.cursor()
@@ -27,8 +27,10 @@ def airportname(use):
           text = i[0]
      return text
 
+# kysyy käyttäjänimen
 username = input("Anna pelinimesi: ")
 
+# tervetuloa printti
 print(f"""Tervetuloa pelaamaan lentopeliä {username}.
 Tarkoituksenasi on lentää kaikki maanosat läpi keräten maiden lippuja
 mahdollisimman pienellä co2-päästöillä""")
