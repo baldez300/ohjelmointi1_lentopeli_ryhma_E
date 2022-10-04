@@ -31,3 +31,4 @@ sql = "UPDATE game" \
 # co2.game & tickets_amount.game & continents_amount.game
 # -> lisää saadut pistemäärät listaan
 # order by desc
+# show indexes 0-5
