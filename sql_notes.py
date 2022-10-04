@@ -46,14 +46,16 @@ print(endcheck())
 # hakee tietokannasta käyttäjät jotka ovat keränneet 10 lippua ja käyneet 7 maanosassa
 # https://stackoverflow.com/questions/28755505/how-to-convert-sql-query-results-into-a-python-dictionary
 # https://dev.mysql.com/doc/connector-python/en/connector-python-api-mysqlcursordict.html
+# https://www.tutorialspoint.com/how-to-sort-a-dictionary-in-python
 # TODO: complete def score()
 def score():
     cursor = connection.cursor(dictionary=True)
     cursor.execute("SELECT screen_name, co2_consumed FROM game WHERE tickets_amount = '10' and continents_amount ='7'")
+    result = cursor.fetchall()
+    return result
 
-
-# printtaa top 5 listan
 # TODO: order by desc, limit print to top 5
+score2 = dict(sorted(dic.items(), key=labda x:x[1]))
 print("TOP 5:")
-for row in cursor:
+for x in range(5):
     print("* {Name}".format(Name=row['Name']
