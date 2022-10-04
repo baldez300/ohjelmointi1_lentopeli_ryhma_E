@@ -15,8 +15,8 @@ sql = f"INSERT INTO game (screen_name)" \
 # every time player moves to another airport
 sql = "INSERT INTO game (location)" \ # NO INSERT, UPDATE
     "VALUES" #player's current location
-# update tickets_amount
-# update continents_amount
+# update tickets_amount (sum of visited countries so far
+# update continents_amount (sum of visited continents so far
 
 # at the end
 # check that every continent has been visited
