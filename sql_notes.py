@@ -13,10 +13,12 @@ sql = f"INSERT INTO game (screen_name)" \
       "VALUES " # player's starting location
 
 # every time player moves to another airport
-sql = "INSERT INTO game (location)" \ # NO INSERT, UPDATE
-    "VALUES" #player's current location
+sql = "UPDATE game" \
+    "SET location = " #player's current location
 # update tickets_amount (sum of visited countries so far
+    "SET tickets_amount = "
 # update continents_amount (sum of visited continents so far
+    "SET continents_amount = "
 
 # at the end
 # check that every continent has been visited
@@ -25,5 +27,7 @@ sql = "INSERT INTO game (location)" \ # NO INSERT, UPDATE
 
 # top 5
 # laskutoimitus pisteet kaikille käyttäjille pythonissa
+# uusi lista scoreboard tmv
 # co2.game & tickets_amount.game & continents_amount.game
-# näyttää 5 korkeinta pistemäärää
+# -> lisää saadut pistemäärät listaan
+# order by desc
