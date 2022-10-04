@@ -3,14 +3,14 @@
 # ADD tickets_amount int(20);
 # uusi rivi game tauluun jossa continents_amount (kuinka monessa maanosassa käyttäjä on käynyt)
 # ALTER TABLE game
-# ADD continents_amounts int(20);
+# ADD continents_amount int(20);
 
 
 # at the start of the game saves username and starting location
 sql = f"INSERT INTO game (screen_name)" \
-      "VALUES({username})"
-sql = "INSERT INTO game (location)" \
-    "VALUES " # player's starting location
+      "VALUES({username})"\
+      "INSERT INTO game (location)" \
+      "VALUES " # player's starting location
 
 # every time player moves to another airport
 sql = "INSERT INTO game (location)" \ # NO INSERT, UPDATE
@@ -19,6 +19,7 @@ sql = "INSERT INTO game (location)" \ # NO INSERT, UPDATE
 # update continents_amount
 
 # at the end
+# check that every continent has been visited
 # laskee nykyisen käyttäjän pisteet ja näyttää ne -> PISTEMÄÄRÄ EI TALLENNU
 # co2.game & tickets_amount.game & continents_amount.game
 
