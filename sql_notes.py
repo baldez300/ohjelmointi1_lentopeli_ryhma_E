@@ -1,5 +1,9 @@
 # uusi rivi game tauluun jossa tickets_amount (kuinka monessa maassa käyttäjä on käynyt)
+# ALTER TABLE game
+# ADD tickets_amount int(20);
 # uusi rivi game tauluun jossa continents_amount (kuinka monessa maanosassa käyttäjä on käynyt)
+# ALTER TABLE game
+# ADD continents_amounts int(20);
 
 
 # at the start of the game saves username and starting location
