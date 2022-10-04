@@ -1,5 +1,5 @@
 # uusi rivi game tauluun jossa tickets_amount (kuinka monessa maassa käyttäjä on käynyt)
-# uusi rivi game tauluun jossa continents_amount (kuinka monessa maassa käyttäjä on käynyt)
+# uusi rivi game tauluun jossa continents_amount (kuinka monessa maanosassa käyttäjä on käynyt)
 
 
 # at the start of the game saves username and starting location
@@ -11,12 +11,14 @@ sql = "INSERT INTO game (location)" \
 # every time player moves to another airport
 sql = "INSERT INTO game (location)" \ # NO INSERT, UPDATE
     "VALUES" #player's current location
+# update tickets_amount
+# update continents_amount
 
 # at the end
-# laskee nykyisen käyttäjän pisteet ja näyttää ne
-# co2.game & location.game
+# laskee nykyisen käyttäjän pisteet ja näyttää ne -> PISTEMÄÄRÄ EI TALLENNU
+# co2.game & tickets_amount.game & continents_amount.game
 
 # top 5
-# laskutoimitus pisteet kaikille käyttäjille
+# laskutoimitus pisteet kaikille käyttäjille pythonissa
+# co2.game & tickets_amount.game & continents_amount.game
 # näyttää 5 korkeinta pistemäärää
-sql = "ORDER BY points_amount DESC"
