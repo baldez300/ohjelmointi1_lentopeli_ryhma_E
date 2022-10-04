@@ -47,15 +47,18 @@ print(endcheck())
 # https://stackoverflow.com/questions/28755505/how-to-convert-sql-query-results-into-a-python-dictionary
 # https://dev.mysql.com/doc/connector-python/en/connector-python-api-mysqlcursordict.html
 # https://www.tutorialspoint.com/how-to-sort-a-dictionary-in-python
-# TODO: complete def score()
+# https://pynative.com/python-cursor-fetchall-fetchmany-fetchone-to-read-rows-from-table/
+# TODO: test if works; maybe sort with sql code and fetchmany(5) instead of fetchall?
 def score():
     cursor = connection.cursor(dictionary=True)
     cursor.execute("SELECT screen_name, co2_consumed FROM game WHERE tickets_amount = '10' and continents_amount ='7'")
     result = cursor.fetchall()
     return result
 
-# TODO: order by desc, limit print to top 5
-score2 = dict(sorted(dic.items(), key=labda x:x[1]))
+# TODO: order by desc, limit print to top 5, idk if this shit works yet
+# creates another dictionary that sorts by value
+score2 = dict(sorted(score.items(), key=lambda x:x[1]))
+# prints top5
 print("TOP 5:")
-for x in range(5):
-    print("* {Name}".format(Name=row['Name']
+for s in range(5):
+    print("* {name}".format(Name=row['Name']
