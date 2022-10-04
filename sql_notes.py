@@ -1,34 +1,59 @@
-# uusi rivi game tauluun jossa tickets_amount (kuinka monessa maassa käyttäjä on käynyt)
-# ALTER TABLE game
-# ADD tickets_amount int(20);
-# uusi rivi game tauluun jossa continents_amount (kuinka monessa maanosassa käyttäjä on käynyt)
-# ALTER TABLE game
-# ADD continents_amount int(20);
+# TODO: starting values for tickets_amount and continents_amount are 0
+# TODO: autoincrement id.game
+# TODO: add co2 additions (only at the end?)
 
+import mysql.connector
 
-# at the start of the game saves username and starting location
-sql = f"INSERT INTO game (screen_name)" \
-      "VALUES({username})"\
-      "INSERT INTO game (location)" \
-      "VALUES " # player's starting location
+def connect_database():
+    return mysql.connector.connect(
+        host='127.0.0.1',
+        port=3306,
+        database='flight_game',
+        user='root',
+        password='Qi$$%^7Zp7Yj!4rq%ba2hTo!',
+        autocommit=True
+         )
 
+connection = connect_database()
+# --------------------------
+# TODO: check if works
+# at the start of the game saves username
+sql = f"INSERT INTO game (screen_name) VALUES({username})"
+
+# saves starting location
+sql = f"INSERT INTO game (location) VALUES({start_airport})"
+# --------------------------
+# TODO: check if works AND dont include starting or ending airport!!!
 # every time player moves to another airport
-sql = "UPDATE game" \
-    "SET location = " #player's current location
-# update tickets_amount (sum of visited countries so far
-    "SET tickets_amount = "
-# update continents_amount (sum of visited continents so far
-    "SET continents_amount = "
+sql = f"UPDATE game SET location = ({airportIcaoCode}) " \
+    "SET tickets_amount = + 1"
+# jos pelaaja liikkuu toiseen maanosaan
+sql = "UPDATE game SET continents_amount + 1"
 
-# at the end
-# check that every continent has been visited
-# laskee nykyisen käyttäjän pisteet ja näyttää ne -> PISTEMÄÄRÄ EI TALLENNU
-# co2.game & tickets_amount.game & continents_amount.game
+# ---------------------------
+# DONE AND CHECKED THIS WORKS
+def endcheck():
+    sql = f"SELECT co2_consumed FROM game WHERE screen_name = ({username}) and tickets_amount = '10' and continents_amount ='7'"
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    return result
+
+print(endcheck())
+# ---------------------------
 
 # top 5
-# laskutoimitus pisteet kaikille käyttäjille pythonissa
-# uusi lista scoreboard tmv
-# co2.game & tickets_amount.game & continents_amount.game
-# -> lisää saadut pistemäärät listaan
-# order by desc
-# show indexes 0-5
+# hakee tietokannasta käyttäjät jotka ovat keränneet 10 lippua ja käyneet 7 maanosassa
+# https://stackoverflow.com/questions/28755505/how-to-convert-sql-query-results-into-a-python-dictionary
+# https://dev.mysql.com/doc/connector-python/en/connector-python-api-mysqlcursordict.html
+# TODO: complete def score()
+def score():
+    cursor = connection.cursor(dictionary=True)
+    cursor.execute("SELECT screen_name, co2_consumed FROM game WHERE tickets_amount = '10' and continents_amount ='7'")
+
+
+# printtaa top 5 listan
+# TODO: order by desc, limit print to top 5
+print("TOP 5:")
+for row in cursor:
+    print("* {Name}".format(Name=row['Name']
