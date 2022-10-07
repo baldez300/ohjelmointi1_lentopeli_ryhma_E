@@ -18,14 +18,14 @@ connection = connect_database()
 # --------------------------
 # TODO: check if works
 # at the start of the game saves username
-sql = f"INSERT INTO game (screen_name) VALUES({username})"
+sql = f"INSERT INTO game (screen_name) VALUES ('{username}')"
 
 # saves starting location
-sql = f"INSERT INTO game (location) VALUES({start_airport})"
+sql = f"INSERT INTO game (location) VALUES ('{start_airport}')"
 # --------------------------
 # TODO: check if works AND dont include starting or ending airport!!!
 # every time player moves to another airport
-sql = f"UPDATE game SET location = ({airportIcaoCode}) " \
+sql = f"UPDATE game SET location = '{airportIcaoCode}' " \
     "SET tickets_amount = + 1"
 # jos pelaaja liikkuu toiseen maanosaan
 sql = "UPDATE game SET continents_amount + 1"
@@ -33,7 +33,7 @@ sql = "UPDATE game SET continents_amount + 1"
 # ---------------------------
 # DONE AND CHECKED THIS WORKS
 def check_tickets_continents():
-    sql = f"SELECT co2_consumed FROM game WHERE screen_name = ({username}) and tickets_amount = '10' and continents_amount ='6'"
+    sql = f"SELECT co2_consumed FROM game WHERE screen_name = '{username}' and tickets_amount = '10' and continents_amount ='6'"
     cursor = connection.cursor()
     cursor.execute(sql)
     result = cursor.fetchall()
