@@ -16,12 +16,11 @@ def connect_database():
 
 connection = connect_database()
 # --------------------------
-# TODO: check if works
-# at the start of the game saves username
+# saves username - checked and works
 sql = f"INSERT INTO game (screen_name) VALUES ('{username}')"
 
-# saves starting location
-sql = f"INSERT INTO game (location) VALUES ('{start_airport}')"
+# saves starting location - checked and works
+sql = f"UPDATE game SET location = ('{start_airport}') WHERE screen_name = '{username}'"
 # --------------------------
 # TODO: check if works AND dont include starting or ending airport!!!
 # every time player moves to another airport
