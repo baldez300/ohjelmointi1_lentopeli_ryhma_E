@@ -13,3 +13,11 @@ def connect_database():
 
 connection = connect_database()
 
+def endcheck():
+    sql = f"SELECT co2_consumed FROM game WHERE screen_name = 'gdf' and tickets_amount = '10' and continents_amount ='6'"
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    return result
+
+print(endcheck())

@@ -32,8 +32,8 @@ sql = "UPDATE game SET continents_amount + 1"
 
 # ---------------------------
 # DONE AND CHECKED THIS WORKS
-def endcheck():
-    sql = f"SELECT co2_consumed FROM game WHERE screen_name = ({username}) and tickets_amount = '10' and continents_amount ='7'"
+def check_tickets_continents():
+    sql = f"SELECT co2_consumed FROM game WHERE screen_name = ({username}) and tickets_amount = '10' and continents_amount ='6'"
     cursor = connection.cursor()
     cursor.execute(sql)
     result = cursor.fetchall()
@@ -51,7 +51,7 @@ print(endcheck())
 # TODO: test if works; maybe sort with sql code and fetchmany(5) instead of fetchall?
 def score():
     cursor = connection.cursor(dictionary=True)
-    cursor.execute("SELECT screen_name, co2_consumed FROM game WHERE tickets_amount = '10' and continents_amount ='7'")
+    cursor.execute("SELECT screen_name, co2_consumed FROM game WHERE tickets_amount = '10' and continents_amount ='6'")
     result = cursor.fetchall()
     return result
 
