@@ -39,7 +39,7 @@ def check_tickets_continents():
     result = cursor.fetchall()
     return result
 
-print(endcheck())
+print(check_tickets_continents())
 # ---------------------------
 
 # top 5
