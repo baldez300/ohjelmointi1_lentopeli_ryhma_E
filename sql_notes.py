@@ -42,7 +42,7 @@ print(check_tickets_continents())
 # ---------------------------
 
 # top 5
-# hakee tietokannasta käyttäjät jotka ovat keränneet 10 lippua ja käyneet 7 maanosassa
+# hakee tietokannasta käyttäjät jotka ovat keränneet 10 lippua ja käyneet 6 maanosassa
 # https://stackoverflow.com/questions/28755505/how-to-convert-sql-query-results-into-a-python-dictionary
 # https://dev.mysql.com/doc/connector-python/en/connector-python-api-mysqlcursordict.html
 # https://www.tutorialspoint.com/how-to-sort-a-dictionary-in-python
