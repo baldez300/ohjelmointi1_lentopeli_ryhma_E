@@ -23,14 +23,14 @@ sql = f"INSERT INTO game (screen_name) VALUES ('{username}')"
 sql = f"UPDATE game SET location = ('{start_airport}') WHERE screen_name = '{username}'"
 # --------------------------
 # TODO: check if works AND dont include starting or ending airport!!!
-# every time player moves to another airport
+# every time player moves to another airport - checked and works
 sql = f"UPDATE game SET location = '{airportIcaoCode}' " \
-    "SET tickets_amount = + 1"
-# jos pelaaja liikkuu toiseen maanosaan
-sql = "UPDATE game SET continents_amount + 1"
+    "SET tickets_amount = tickets_amount + 1"
+# if player moves to another continent - checked and works
+sql = "UPDATE game SET continents_amount = continents_amount + 1"
 
 # ---------------------------
-# DONE AND CHECKED THIS WORKS
+# checks if user has visited 10 countries and 6 continents - checked and works
 def check_tickets_continents():
     sql = f"SELECT co2_consumed FROM game WHERE screen_name = '{username}' and tickets_amount = '10' and continents_amount ='6'"
     cursor = connection.cursor()
