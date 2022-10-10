@@ -16,7 +16,7 @@ def connect_database():
 connection = connect_database()
 
 def airport_location(icao):
-    sql = f"SELECT latitude_deg, longitude_deg FROM airport where ident = '{icao}'"
+    sql = f"SELECT latitude_deg, longitude_deg FROM airport WHERE ident = '{icao}'"
     cursor = connection.cursor()
     cursor.execute(sql)
     result = cursor.fetchall()
