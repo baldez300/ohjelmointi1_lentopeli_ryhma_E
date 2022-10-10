@@ -1,7 +1,3 @@
-# TODO: starting values for tickets_amount and continents_amount are 0
-# TODO: autoincrement id.game
-# TODO: add co2 additions (only at the end?)
-
 import mysql.connector
 
 def connect_database():
@@ -15,36 +11,28 @@ def connect_database():
          )
 
 connection = connect_database()
-# ---------------------------------------------------------------------------
+
 # saves username - checked and works
 sql = f"INSERT INTO game (screen_name) VALUES ('{username}')"
 
 # saves starting location - checked and works
 sql = f"UPDATE game SET location = ('{start_airport}') WHERE screen_name = '{username}'"
-# ---------------------------------------------------------------------------
+
 # every time player moves to another airport - checked and works
-sql = f"UPDATE game SET location = '{airportIcaoCode}' " \
-    "SET tickets_amount = tickets_amount + 1"
+sql = f"UPDATE game SET location = ('{airportIcaoCode}') WHERE screen_name = '{username}'"
+# every time player moves to another country - checked and works
+sql = f"UPDATE game SET tickets_amount = tickets_amount + 1 WHERE screen_name = '{username}'"
 # if player moves to another continent - checked and works
-sql = "UPDATE game SET continents_amount = continents_amount + 1"
+sql = f"UPDATE game SET continents_amount = continents_amount + 1 WHERE screen_name = '{username}'"
 
-# -----------------------------------------------------------------------------
 # checks if user has visited 10 countries and 6 continents - checked and works
-def check_tickets_continents():
-    sql = f"SELECT co2_consumed FROM game WHERE screen_name = '{username}' and tickets_amount = '10' and continents_amount ='6'"
-    cursor = connection.cursor()
-    cursor.execute(sql)
-    result = cursor.fetchall()
-    return result
+sql = f"SELECT co2_consumed FROM game WHERE screen_name = '{username}' and tickets_amount = '10' and continents_amount ='6'"
 
-print(check_tickets_continents())
-# ---------------------------------------------------------------------------
+# updates user's co2_used - checked and works
+sql = f"UPDATE game SET co2_consumed = ('{co2_overall_used}') WHERE screen_name = '{username}'"
+
+# updates user's co2_used - checked and works
+sql = f"UPDATE game SET co2_consumed = ('{co2_overall_used}') WHERE screen_name = '{username}'"
 
 # top 5, gets 5 users with lowest co2 used and orders by ascending - checked and works
-def t5():
-    cursor = connection.cursor()
-    cursor.execute("SELECT screen_name, co2_consumed FROM game WHERE tickets_amount = '10' and continents_amount ='6' ORDER BY co2_consumed ASC LIMIT 5")
-    result = cursor.fetchall()
-    return result
-
-print(t5())
+sql = "SELECT screen_name, co2_consumed FROM game WHERE tickets_amount = '10' and continents_amount ='6' ORDER BY co2_consumed ASC LIMIT 5"
