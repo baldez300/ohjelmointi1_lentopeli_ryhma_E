@@ -31,8 +31,5 @@ sql = f"SELECT co2_consumed FROM game WHERE screen_name = '{username}' and ticke
 # updates user's co2_used - checked and works
 sql = f"UPDATE game SET co2_consumed = ('{co2_overall_used}') WHERE screen_name = '{username}'"
 
-# updates user's co2_used - checked and works
-sql = f"UPDATE game SET co2_consumed = ('{co2_overall_used}') WHERE screen_name = '{username}'"
-
 # top 5, gets 5 users with lowest co2 used and orders by ascending - checked and works
 sql = "SELECT screen_name, co2_consumed FROM game WHERE tickets_amount = '10' and continents_amount ='6' ORDER BY co2_consumed ASC LIMIT 5"
