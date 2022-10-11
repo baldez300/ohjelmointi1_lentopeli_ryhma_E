@@ -1,5 +1,6 @@
 import mysql.connector
 import geopy.distance
+import flag
 
 def connect_database():
     return mysql.connector.connect(
@@ -15,8 +16,7 @@ def connect_database():
 connection = connect_database()
 
 
-# lentokenttien haku
-
+# lentokenttien haku eri maista
 def select_country(country):
     sql = f"select airport.name, ident from airport  inner join country on airport.iso_country = country.iso_country  where country.name='{country}' and type in ('medium_airport', 'large_airport') order by rand() limit 5;"
     cursor = connection.cursor()
@@ -26,7 +26,7 @@ def select_country(country):
     for i in result:
         print(f"{i[0]}: {i[1]}")
 
-    if result == [ ]:
+    if not result:
         print("Anna kelvollinen maa")
     else:
         return result
@@ -42,7 +42,7 @@ def select_country_airport(airport, iso):
         print("\n------------------------")
         print(f"Olet nyt lentokentällä: {i[0]}")
 
-    if result == []:
+    if not result:
         print("Anna kelvollinen lentokentän icao-koodi")
     else:
         return result
@@ -65,7 +65,6 @@ def search_country_in_continent(continent):
         return countrylist
 
 # Maan iso_countryn hakeminen
-
 def isocountry(country):
     sql = f"SELECT iso_country FROM country WHERE name = '{country}'"
     cursor = connection.cursor()
@@ -117,17 +116,19 @@ def check_tickets_continents():
 
     return tickets, continent
 
+# Funktio luo käyttäjän tietokantaan
 def createuser():
     sql = f"INSERT INTO game (screen_name) VALUES ('{username}')"
     cursor = connection.cursor()
     cursor.execute(sql)
 
+# Päivittää pelaajan sijaintia tietokantaan
 def set_player_location(iso):
     sql = f"UPDATE game SET location = ('{iso.upper()}') WHERE screen_name = '{username}'"
     cursor = connection.cursor()
     cursor.execute(sql)
 
-
+# Lisää maanosan tietokantaan
 def checkcontinent(userinput):
     if userinput in checklist:
         checklist.remove(userinput)
@@ -136,6 +137,28 @@ def checkcontinent(userinput):
         cursor = connection.cursor()
         cursor.execute(sql)
 
+# Hakee lipun
+def get_flag(country):
+    try:
+        sql = f"SELECT iso_country FROM country WHERE country.name = '{country}';"
+        cursor = connection.cursor()
+        cursor.execute(sql)
+        result = cursor.fetchall()
+
+        for i in result:
+            codestr = "".join(i)
+            countryflag = flag.flag(codestr)
+            # flaglist.append(lippu)
+            return countryflag
+    except:
+        print("Virheellinen syöte!")
+
+# Lisää yhden kerätyn lipun tietokantaan
+def flags_counter():
+    sql = f"UPDATE game SET tickets_amount = tickets_amount + 1 WHERE screen_name = '{username}'"
+    cursor = connection.cursor()
+    cursor.execute(sql)
+
 
 # co2 päästöt kilogrammoina per kilometri
 co2perkm = 0.225
@@ -143,6 +166,7 @@ co2perkm = 0.225
 co2overallused = 0
 
 checklist = ["EU", "NA", "SA", "AS", "OC", "AF"]
+flaglist = []
 
 username = input("Anna pelinimesi: ")
 createuser()
@@ -200,9 +224,11 @@ while program_running:
         airport = goalairport
         co2used = (distance * co2perkm).__round__(2)
         co2overallused += co2used
+        set_player_location("FI")
         print(f"Lentosi co2 päästöt olivat {co2used} kg\n")
         print(f"Olet saapunut maaliin lentokentälle {search_airport(goalairport)}")
-        print(f"Matkasi kokonaispäästöt olivat {co2overallused} kg")
+        print(f"Matkasi kokonaispäästöt olivat {co2overallused.__round__(2)} kg")
+        print(f"Sait kerättyä {len(flaglist)} lippua:\n{flaglist}")
         program_running = False
     else:
         print("Jos haluat lentää saman maanosan sisällä syötä: Toiseen maahan\nJos haluat vaihtaa maanosaa syötä: Toiseen maanosaan ")
@@ -211,8 +237,10 @@ while program_running:
         userinput = input("Mitä haluaisit tehdä?: ").lower()
         print("\n------------------------")
         if userinput == "päästöt":
-            print(f"Kokonais co2 päästöstösi ovat {co2overallused} kg")
+            print(f"Kokonais co2 päästöstösi ovat {co2overallused.__round__(2)} kg")
             print("------------------------\n")
+        elif userinput == "liput":
+            print(f"Olet kerännyt {len(flaglist)} lippua:\n{flaglist}\n")
         elif userinput == "top5":
             print(f"Top-5 Lista:\n")
             #TODO lisää top-5 lista
@@ -240,6 +268,13 @@ while program_running:
                     print("\n------------------------")
                     nameloop = select_country(countryNm)
                     print("------------------------\n")
+                    flager = get_flag(countryNm)
+                    if flager not in flaglist:
+                        flaglist.append(flager)
+                        flags_counter()
+                    elif flager in flaglist:
+                        print("Olet jo kerännyt tämän lipun!")
+
             while not icaoloop:
                 try:
                     airportIcaoCode = input("Valitse yllä olevista satunnaisista lentokentistä kirjoittamalla ICAO-koodi: ")
@@ -258,6 +293,7 @@ while program_running:
             airport = airportIcaoCode
             set_player_location(iso_country)
 
+
         elif userinput == "toiseen maahan":
             countryloop = []
             icaoloop = []
@@ -272,6 +308,12 @@ while program_running:
                     print("------------------------")
                     countryloop = select_country(countryNm)
                     print("------------------------")
+                    flager = get_flag(countryNm)
+                    if flager not in flaglist:
+                        flaglist.append(flager)
+                        flags_counter()
+                    elif flager in flaglist:
+                        print("Olet jo kerännyt tämän lipun!")
                 except:
                     print("Virheellinen syöte")
             while not icaoloop:
