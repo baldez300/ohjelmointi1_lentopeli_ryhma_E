@@ -49,6 +49,6 @@ for name in result:
 print(names)
 
 if username in names:
-    print("olet t5")
+    print("Olet top 5 -listalla")
 else:
-    print("et ole t5")
+    print("Et ole top 5 -listalla")
