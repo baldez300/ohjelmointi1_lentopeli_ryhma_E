@@ -231,19 +231,27 @@ while program_running:
         print(f"Sait kerättyä {len(flaglist)} lippua:\n{flaglist}")
         program_running = False
     else:
-        print("Jos haluat lentää saman maanosan sisällä syötä: Toiseen maahan\nJos haluat vaihtaa maanosaa syötä: Toiseen maanosaan ")
-        print("Kokonaispäästösi näet komennolla: Päästöt\n")
-        #TODO lisää alku printtiin kaikki mahdolliset vaihtoehdot
+        print("Jos haluat lentää saman maanosan sisällä syötä: Toiseen maahan\nJos haluat vaihtaa maanosaa syötä: Toiseen maanosaan\nKokonaispäästösi näet komennolla: Päästöt\nTop5-listan näet komennolla: top5\nKaikki keräämäsi liput näet komennolla: liput")
+        print("------------------------")
         userinput = input("Mitä haluaisit tehdä?: ").lower()
-        print("\n------------------------")
+        print("------------------------")
         if userinput == "päästöt":
             print(f"Kokonais co2 päästöstösi ovat {co2overallused.__round__(2)} kg")
             print("------------------------\n")
         elif userinput == "liput":
             print(f"Olet kerännyt {len(flaglist)} lippua:\n{flaglist}\n")
         elif userinput == "top5":
-            print(f"Top-5 Lista:\n")
-            #TODO lisää top-5 lista
+            print(f"Top 5 Lista:\n")
+            sql = "SELECT screen_name, co2_consumed FROM game WHERE tickets_amount = '10' and continents_amount ='6' ORDER BY co2_consumed ASC LIMIT 5"
+            cursor = connection.cursor()
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            for n in result:
+                print(f"Käyttäjänimi:", n[0], "\n ⤷ Pisteet:", n[1], "\n")
+            print("------------------------\n")
+        elif userinput == "liput":
+            print(flaglist)
+            print("------------------------\n")
         elif userinput == "toiseen maanosaan":
             continentloop = []
             nameloop = []
