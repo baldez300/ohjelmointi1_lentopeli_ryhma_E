@@ -249,9 +249,6 @@ while program_running:
             for n in result:
                 print(f"Käyttäjänimi:", n[0], "\n ⤷ Pisteet:", n[1], "\n")
             print("------------------------\n")
-        elif userinput == "liput":
-            print(flaglist)
-            print("------------------------\n")
         elif userinput == "toiseen maanosaan":
             continentloop = []
             nameloop = []
