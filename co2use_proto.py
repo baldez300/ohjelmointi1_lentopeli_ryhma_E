@@ -7,8 +7,8 @@ def connect_database():
          host="127.0.0.1",
          port=3306,
          database="flight_game",
-         user="root",
-         password="TiVi2022!",
+         user="username",
+         password="password",
          autocommit=True
          )
 
@@ -31,7 +31,7 @@ print("""                      """)
 print("""Helsinki-Vantaa --> EFHK,
 Enontekiö Airport --> EFET,
 Kokkola-Pietarsaari Airport --> EFKK""")
-airport = input("Miltä lentokentältä haluat aloittaa?")
+airport = input("Miltä lentokentältä haluat aloittaa? ıcao")
 
 current_airport_location = airport_location(airport)
 

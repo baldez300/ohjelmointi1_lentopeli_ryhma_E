@@ -6,12 +6,10 @@ def connect_database():
         host='127.0.0.1',
         port=3306,
         database='flight_game',
-        user='user',
+        user='username',
         password='password',
         autocommit=True
          )
-
-
 connection = connect_database()
 
 
@@ -30,11 +28,10 @@ def search_country_in_continent(continent):
     else:
         return result
 
-
 # maan haku
 def select_country(country):
     sql = f"select airport.name, ident from airport  inner join country on airport.iso_country = country.iso_country  where country.name='{country}' and type in ('medium_airport', 'large_airport') order by rand() limit 5;"
-    cursor = connection.cursor()
+    cursor = connection.curso()
     cursor.execute(sql)
     result = cursor.fetchall()
 
@@ -66,7 +63,7 @@ def select_country_airport(airport):
 
 # Loop through above functions to travel more.
 program_running = True
-
+count = 'EU'
 while program_running:
     # input user command
     userinput = input("Anna 'lopeta', 'hae_maanosaan', vai 'hae_maan': ")
