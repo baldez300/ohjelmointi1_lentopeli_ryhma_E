@@ -32,16 +32,21 @@ def select_country(country):
         return result
 
 # maan lentokentän valinta
+
+
+
 def select_country_airport(airport, iso):
     sql = f"select name from airport where ident='{airport}' and iso_country = '{iso}';"
     cursor = connection.cursor()
     cursor.execute(sql)
     result = cursor.fetchall()
+    matka = 0
+
+
 
     for i in result:
         print("\n------------------------")
         print(f"Olet nyt lentokentällä: {i[0]}")
-
     if result == []:
         print("Anna kelvollinen lentokentän icao-koodi")
     else:
