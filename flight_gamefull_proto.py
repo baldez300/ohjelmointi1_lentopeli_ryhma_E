@@ -6,8 +6,8 @@ def connect_database():
         host='127.0.0.1',
         port=3306,
         database='flight_game',
-        user='root',
-        password='TiVi2022!',
+        user='username',
+        password='password',
         autocommit=True
          )
 
@@ -25,9 +25,6 @@ def select_country(country):
 
     for i in result:
         print(f"{i[0]}: {i[1]}")
-
-    if result == [ ]:
-        print("Anna lentokenttä")
     else:
         return result
 
@@ -37,15 +34,19 @@ def select_country_airport(airport, iso):
     cursor = connection.cursor()
     cursor.execute(sql)
     result = cursor.fetchall()
+    matka = 0
 
     for i in result:
         print("\n------------------------")
         print(f"Olet nyt lentokentällä: {i[0]}")
+        matka = matka +1
+        while matka > 10:
+            print("game over")
+            break
 
     if result == []:
         print("Anna kelvollinen lentokentän icao-koodi")
-    else:
-        return result
+
 
 
 # maiden haku

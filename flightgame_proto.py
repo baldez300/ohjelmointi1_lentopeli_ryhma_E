@@ -6,7 +6,7 @@ def connect_database():
          port=3306,
          database="flight_game",
          user="username",
-         password="passwords",
+         password="password",
          autocommit=True
          )
 
